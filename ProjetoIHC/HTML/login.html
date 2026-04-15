@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2 style="color: var(--orange); text-align: center; margin-bottom: 20px;">QUAL A BOA</h2>
+        
+        <div id="login-form">
+            <input type="email" placeholder="E-mail">
+            <input type="password" placeholder="Senha">
+            <button class="btn-orange" onclick="window.location.href='../index.html'">Entrar</button>
+            <p>Novo aqui? <a onclick="toggleAuthMode()">Cadastre-se</a></p>
+        </div>
+
+        <div id="register-form" class="hidden">
+            <form id="signupForm">
+                <input type="text" placeholder="Nome Completo" required>
+                <input type="text" placeholder="CPF" required>
+                <label>Data de Nascimento (+18):</label>
+                <input type="date" id="dob" required>
+                <label>Foto de Perfil:</label>
+                <input type="file" accept="image/*">
+                <input type="email" placeholder="E-mail" required>
+                <input type="password" placeholder="Crie uma Senha" required>
+                <button type="submit" class="btn-orange">Criar Conta</button>
+                <p>Já tem conta? <a onclick="toggleAuthMode()">Faça Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
