@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
+    <style>
+        /* Ajuste simples para o calendário não colar nas bordas e usar as cores do projeto */
+        #calendario-container {
+            background-color: #fffffe;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--orange);
+            margin-top: 20px;
+        }
+        /* Cor do texto do calendário */
+        .fc { color: var(--dark-grey); }
+        .fc-button-primary { background-color: var(--orange) !important; border-color: var(--orange) !important; }
+        .fc-button-primary:hover { background-color: var(--red) !important; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo"><a href="../index.html">QUAL A BOA</a></h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Feed</a></li>
+            <li><a href="calendario.html" style="color: var(--orange);">Calendário</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+            <li><button class="btn-blue" onclick="tentarCriarEvento()">Criar Evento</button></li>
+            <li><button class="btn-outline" style="color: #E53935; border: none;" onclick="fazerLogout()">Sair</button></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div id="calendario-container"></div>
+    </div>
+
+    <script src="../JS/script.js"></script>
+</body>
+</html>

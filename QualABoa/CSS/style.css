@@ -1,0 +1,242 @@
+/* =========================
+   RESET & VARIÁVEIS
+========================= */
+:root {
+    --bg-color: #fef6e4;
+    --text-color: #ffffff;
+    --orange: #FF7F50;
+    --red: #E53935;
+    --dark-grey: #222222;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* =========================
+   UTILITÁRIOS
+========================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    color: var(--orange);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fef6e4;
+    border-bottom: 2px solid var(--orange);
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--orange);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-links a {
+    font-weight: bold;
+    color: #222222;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #E53935;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.btn-orange {
+    background-color: var(--orange);
+    color: #fff;
+}
+
+.btn-blue {
+    background-color: var(--red);
+    color: #fff;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--orange);
+    color: var(--orange);
+}
+
+/* =========================
+   FEED / EVENTOS
+========================= */
+.feed-header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-bar {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid var(--orange);
+    border-radius: 5px;
+}
+
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.event-card {
+    background-color: #fffffe;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid var(--orange);
+}
+
+.event-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.event-img {
+    height: 150px;
+    overflow: hidden;
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    color: #777; */
+}
+
+.event-desc {
+    color: #000;
+}
+
+.event-info {
+    padding: 15px;
+}
+
+.event-info h3 {
+    margin-bottom: 10px;
+    color: var(--red);
+}
+
+.event-info button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* =========================
+   AUTENTICAÇÃO
+========================= */
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--dark-grey);
+    border-radius: 10px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+.auth-container p {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.auth-container a {
+    color: var(--blue);
+    cursor: pointer;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    width: 400px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--dark-grey);
+    border-radius: 10px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    color: var(--orange);
+    cursor: pointer;
+}
