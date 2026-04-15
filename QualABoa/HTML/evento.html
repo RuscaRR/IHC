@@ -3,57 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Evento - QUAL A BOA</title>
+    <title>Detalhes - QUAL A BOA</title>
     <link rel="stylesheet" href="../CSS/style.css">
+    <style>
+        .evento-detalhe-container { background-color: #fffffe; border-radius: 10px; border: 2px solid var(--orange); padding: 30px; margin-top: 20px; }
+        .evento-detalhe-img { width: 100%; height: 400px; object-fit: cover; border-radius: 5px; margin-bottom: 20px; background-color: #333; }
+        .evento-infos h2 { color: var(--red); font-size: 2rem; margin-bottom: 10px; }
+        .evento-infos p { font-size: 1.1rem; margin-bottom: 15px; color: var(--dark-grey); }
+    </style>
 </head>
 <body>
-
     <nav class="navbar">
         <h1 class="logo"><a href="../index.html">QUAL A BOA</a></h1>
         <ul class="nav-links">
             <li><a href="../index.html">Feed</a></li>
             <li><a href="calendario.html">Calendário</a></li>
-            <li><a href="perfil.html">Perfil</a></li>
-            <li><button class="btn-blue" onclick="tentarCriarEvento()">Criar Evento</button></li>
-            <li><a href="#" style="color: var(--orange);" onclick="fazerLogout()">Sair</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <button class="btn-outline" onclick="window.location.href='index.html'" style="margin-bottom: 20px;">← Voltar para o Feed</button>
-        
-        <div class="event-detail-content" style="background-color: var(--dark-grey); padding: 40px; border-radius: 10px;">
-            <div style="height: 300px; background-color: #333; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777;">
-                [Imagem Grande do Evento]
-            </div>
-            
-            <h2 style="font-size: 2rem; color: var(--blue);">Festa da Espuma</h2>
-            <p class="event-date" style="color: var(--orange); font-size: 1.2rem; margin: 10px 0;">📅 Hoje, 22:00 | 📍 Centro de Eventos</p>
-            
-            <h3 style="margin-top: 20px;">Sobre o Evento</h3>
-            <p class="event-desc" style="margin: 10px 0 30px; line-height: 1.6;">
-                Prepare-se para a melhor noite do ano! Muita música com DJs convidados, estrutura completa de som e iluminação, e open bar até a meia-noite. Chame seus amigos e venha curtir a Festa da Espuma! Não esqueça de trazer uma roupa confortável.
-            </p>
-            
-            <div style="display: flex; gap: 15px;">
-                <button class="btn-orange" style="font-size: 1.1rem; padding: 15px 30px;">✅ Confirmar Presença</button>
-                <button class="btn-outline" style="font-size: 1.1rem; padding: 15px 30px;">⭐ Salvar Evento</button>
+        <button class="btn-outline" onclick="window.location.href='../index.html'" style="margin-bottom: 20px;">⬅ Voltar ao Feed</button>
+        <div class="evento-detalhe-container">
+            <img id="detalhe-img" src="" class="evento-detalhe-img">
+            <div class="evento-infos">
+                <h2 id="detalhe-nome"></h2>
+                <p id="detalhe-data-local"></p>
+                <hr style="border: 1px solid #eee; margin: 20px 0;">
+                <p><strong>Descrição:</strong></p>
+                <p id="detalhe-desc"></p>
+                <div style="margin-top: 30px; display: flex; gap: 15px;">
+                    <button class="btn-orange">Confirmar Presença</button>
+                    <button class="btn-outline">⭐ Salvar Evento</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="create-event-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close" onclick="fecharModal('create-event-modal')">&times;</span>
-            <h2>Criar Novo Evento</h2>
-            <input type="text" placeholder="Nome do Evento">
-            <input type="date">
-            <input type="text" placeholder="Local">
-            <textarea placeholder="Descrição do evento..."></textarea>
-            <button class="btn-orange">Publicar Evento</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dados = JSON.parse(localStorage.getItem('eventoVisualizar'));
+            if (dados) {
+                document.getElementById('detalhe-nome').innerText = dados.nome;
+                document.getElementById('detalhe-img').src = dados.imagem;
+                const dataFormatada = dados.data.split('-').reverse().join('/');
+                document.getElementById('detalhe-data-local').innerHTML = `<strong>📅 Data:</strong> ${dataFormatada} | <strong>📍 Local:</strong> ${dados.local}`;
+                document.getElementById('detalhe-desc').innerText = dados.desc;
+            }
+        });
+    </script>
 </body>
 </html>

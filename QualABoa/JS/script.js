@@ -91,84 +91,128 @@ if (signupForm) {
 }
 
 // ==========================================
-// 5. PUBLICAR NOVO EVENTO
+// 5. PUBLICAR E PERSISTIR EVENTOS
 // ==========================================
 
-// Localize a função publicarEvento no seu script.js e substitua por esta:
-
+// Função principal para criar o evento
 function publicarEvento() {
     const nome = document.getElementById('novo-evento-nome').value;
     const data = document.getElementById('novo-evento-data').value;
     const local = document.getElementById('novo-evento-local').value;
-    const imgInput = document.getElementById('novo-evento-img'); // Captura o input de arquivo
+    const desc = document.getElementById('novo-evento-desc').value;
+    const imgInput = document.getElementById('novo-evento-img');
     
     if (!nome || !data || !local) {
-        alert("Por favor, preencha o nome, data e local do evento!");
+        alert("Por favor, preencha os campos obrigatórios!");
         return;
     }
 
-    
-    let imagemSrc = ""; 
+    // Se o usuário selecionou uma imagem, vamos converter para texto (Base64)
     if (imgInput.files && imgInput.files[0]) {
-        // Cria um link temporário para a imagem que o usuário escolheu
-        imagemSrc = URL.createObjectURL(imgInput.files[0]);
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const base64Image = e.target.result;
+            salvarEventoNoStorage(nome, data, local, desc, base64Image);
+        };
+        
+        reader.readAsDataURL(imgInput.files[0]);
     } else {
-        // Imagem padrão caso o usuário não escolha nenhuma
-        imagemSrc = "https://via.placeholder.com/300x150?text=Sem+Imagem"; 
+        // Se não tiver imagem, usa uma padrão
+        salvarEventoNoStorage(nome, data, local, desc, "https://via.placeholder.com/300x150?text=Sem+Imagem");
     }
+}
 
-    const eventGrid = document.querySelector('.event-grid');
-    const novoCard = document.createElement('div');
-    novoCard.classList.add('event-card');
+// Função para salvar no LocalStorage
+function salvarEventoNoStorage(nome, data, local, desc, imagem) {
+    const novosEventos = JSON.parse(localStorage.getItem('meusEventos')) || [];
+    
+    const novoEvento = {
+        id: Date.now(), // ID único baseado no tempo
+        nome,
+        data,
+        local,
+        desc,
+        imagem
+    };
 
-    const dataFormatada = data.split('-').reverse().join('/');
+    novosEventos.push(novoEvento);
+    localStorage.setItem('meusEventos', JSON.stringify(novosEventos));
 
-    novoCard.innerHTML = `
-        <div class="event-img">
-            <img src="${imagemSrc}" alt="${nome}" style="width: 100%; height: 150px; object-fit: cover;">
-        </div>
-        <div class="event-info">
-            <h3>${nome}</h3>
-            <p class="event-desc">${dataFormatada} - ${local}</p>
-            <button class="btn-orange" onclick="window.location.href='evento.html'">Ver Detalhes</button>
-            <button class="btn-outline" onclick="favoritarEvento('${nome}', '${data}')">⭐ Salvar</button>
-        </div>
-    `;
-
-    eventGrid.prepend(novoCard);
-
-    // Limpar campos
+    // Limpar campos e fechar modal
+    fecharModal('create-event-modal');
     document.getElementById('novo-evento-nome').value = '';
     document.getElementById('novo-evento-data').value = '';
     document.getElementById('novo-evento-local').value = '';
     document.getElementById('novo-evento-desc').value = '';
-    imgInput.value = ''; // Limpa o campo de arquivo
     
-    fecharModal('create-event-modal');
     alert("Evento publicado com sucesso!");
+    
+    // Recarrega o feed para mostrar o novo evento
+    renderizarEventosNoFeed();
+}
+
+// Função para desenhar os eventos salvos na tela
+function renderizarEventosNoFeed() {
+    const eventGrid = document.querySelector('.event-grid');
+    if (!eventGrid) return;
+
+    const eventosSalvos = JSON.parse(localStorage.getItem('meusEventos')) || [];
+
+    eventosSalvos.forEach(evento => {
+        if (!document.getElementById(`card-${evento.id}`)) {
+            const novoCard = document.createElement('div');
+            novoCard.id = `card-${evento.id}`;
+            novoCard.classList.add('event-card');
+
+            const dataFormatada = evento.data.split('-').reverse().join('/');
+
+            novoCard.innerHTML = `
+                <div class="event-img">
+                    <img src="${evento.imagem}" alt="${evento.nome}" style="width: 100%; height: 150px; object-fit: cover;">
+                </div>
+                <div class="event-info">
+                    <h3>${evento.nome}</h3>
+                    <p class="event-desc">${dataFormatada} - ${evento.local}</p>
+                    
+                    <button class="btn-orange" onclick="verDetalhes('${evento.nome}', '${evento.data}', '${evento.local}', '${evento.imagem}', '${evento.desc}')">Ver Detalhes</button>
+                    
+                    <button class="btn-outline" onclick="favoritarEvento('${evento.nome}', '${evento.data}')">⭐ Salvar</button>
+                </div>
+            `;
+            eventGrid.prepend(novoCard);
+        }
+    });
 }
 
 // ==========================================
-// 6. SISTEMA DE FAVORITAR E CALENDÁRIO
+// 6. FAVORITOS E INICIALIZAÇÃO
 // ==========================================
 
-// Função acionada pelo botão "⭐ Salvar"
 function favoritarEvento(nome, dataISO) {
-    // Busca os eventos já salvos ou cria uma lista vazia
     let eventosSalvos = JSON.parse(localStorage.getItem('eventosFavoritos')) || [];
-
-    // Verifica se já salvou antes
     const jaExiste = eventosSalvos.find(evento => evento.nome === nome && evento.data === dataISO);
 
     if (jaExiste) {
         alert(`O evento "${nome}" já está no seu calendário!`);
     } else {
-        // Adiciona na lista e salva no localStorage
         eventosSalvos.push({ nome: nome, data: dataISO });
         localStorage.setItem('eventosFavoritos', JSON.stringify(eventosSalvos));
         alert(`Evento "${nome}" adicionado ao seu calendário!`);
     }
 }
+
+// Inicialização automática ao carregar qualquer página
+document.addEventListener('DOMContentLoaded', () => {
+    // Se estiver no Feed, carrega os cards
+    renderizarEventosNoFeed();
+    
+    // Se estiver no Calendário, renderiza o calendário (sua função existente)
+    if (typeof renderizarCalendario === "function") {
+        renderizarCalendario();
+    }
+});
+
 // Função que desenha o calendário usando a biblioteca FullCalendar
 function renderizarCalendario() {
     const container = document.getElementById('calendario-container');
@@ -208,5 +252,19 @@ function renderizarCalendario() {
     calendar.render();
 }
 
-// Faz o calendário ser desenhado assim que a página carrega
-document.addEventListener('DOMContentLoaded', renderizarCalendario);
+// Função para salvar o evento clicado e abrir a página de detalhes
+function verDetalhes(nome, data, local, imagem, desc) {
+    const eventoClicado = {
+        nome: nome,
+        data: data,
+        local: local,
+        imagem: imagem,
+        desc: desc || "Sem descrição disponível."
+    };
+    
+    // Salva o evento atual para a outra página ler
+    localStorage.setItem('eventoVisualizar', JSON.stringify(eventoClicado));
+    
+    // Redireciona para a página de detalhes
+    window.location.href = './HTML/evento.html';
+}

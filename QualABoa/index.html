@@ -34,8 +34,8 @@
                 <div class="event-img"><img src="./IMG/Mario.jpeg" alt="Mario"></div>
                 <div class="event-info">
                     <h3>Competição de sósias do Mario</h3>
-                    <p class="event-desc">Hoje, 22:00 - Centro de Eventos</p>
-                    <button class="btn-orange" onclick="window.location.href='./HTML/evento.html'">Ver Detalhes</button>
+                    <p class="event-desc">15/05/2026 - Centro de Eventos</p>
+                    <button class="btn-orange" onclick="verDetalhes('Competição de sósias do Mario', '2026-05-15', 'Centro de Eventos', './IMG/Mario.jpeg', 'Uma competição incrível para fãs do encanador mais famoso do mundo!')">Ver Detalhes</button>
                     <button class="btn-outline" onclick="favoritarEvento('Competição de sósias do Mario', '2026-05-15')">⭐ Salvar</button>
                 </div>
             </div>
@@ -43,30 +43,27 @@
                 <div class="event-img"><img src="./IMG/Maveco.jpeg" alt="Maveco"></div>
                 <div class="event-info">
                     <h3>Encontro de carros antigos</h3>
-                    <p class="event-desc">12/5, 22:00 - Shopping lupo</p>
-                    <button class="btn-orange" onclick="window.location.href='./HTML/evento.html'">Ver Detalhes</button>
+                    <p class="event-desc">12/05/2026 - Shopping Lupo</p>
+                    <button class="btn-orange" onclick="verDetalhes('Encontro de carros antigos', '2026-05-12', 'Shopping Lupo', './IMG/Maveco.jpeg', 'Exposição de veículos clássicos e raros.')">Ver Detalhes</button>
                     <button class="btn-outline" onclick="favoritarEvento('Encontro de carros antigos', '2026-05-12')">⭐ Salvar</button>
                 </div>
             </div>
-        </div>
+            </div>
     </div>
 
     <div id="create-event-modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close" onclick="fecharModal('create-event-modal')">&times;</span>
-        <h2>Criar Novo Evento</h2>
-        
-        <label style="color: #fff; font-size: 0.9rem;">Foto do Evento:</label>
-        <input type="file" id="novo-evento-img" accept="image/*">
-        
-        <input type="text" id="novo-evento-nome" placeholder="Nome do Evento">
-        <input type="date" id="novo-evento-data">
-        <input type="text" id="novo-evento-local" placeholder="Local">
-        <textarea id="novo-evento-desc" placeholder="Descrição do evento..."></textarea>
-        
-        <button class="btn-orange" onclick="publicarEvento()">Publicar Evento</button>
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('create-event-modal')">&times;</span>
+            <h2>Criar Novo Evento</h2>
+            <label style="color: #fff; font-size: 0.9rem;">Foto do Evento:</label>
+            <input type="file" id="novo-evento-img" accept="image/*">
+            <input type="text" id="novo-evento-nome" placeholder="Nome do Evento">
+            <input type="date" id="novo-evento-data">
+            <input type="text" id="novo-evento-local" placeholder="Local">
+            <textarea id="novo-evento-desc" placeholder="Descrição do evento..."></textarea>
+            <button class="btn-orange" onclick="publicarEvento()">Publicar Evento</button>
+        </div>
     </div>
-</div>
 
     <script src="./JS/script.js"></script>
 </body>
