@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="auth-container">
+            <h1 class="logo" style="text-align: center; margin-bottom: 20px;">
+                <a href="../index.html" style="text-decoration: none; color: #FF7F50;">QUAL A BOA</a>
+            </h1>
+
+            <div id="login-form">
+                <h2 style="color: #fff; margin-bottom: 15px;">Entrar</h2>
+                <input type="email" id="login-email" placeholder="E-mail">
+                <input type="password" id="login-password" placeholder="Senha">
+                
+                <button type="button" class="btn-orange" onclick="fazerLogin()">Entrar</button>
+                
+                <p style="color: #fff;">Não tem uma conta? 
+                    <a onclick="toggleAuthMode()" style="color: #FF7F50; cursor: pointer;">Cadastre-se</a>
+                </p>
+            </div>
+
+            <div id="register-form" class="hidden">
+                <h2 style="color: #fff; margin-bottom: 15px;">Criar Conta</h2>
+                <form id="signupForm">
+                    <input type="text" placeholder="Nome Completo" required>
+                    <input type="email" placeholder="E-mail" required>
+                    <input type="password" placeholder="Senha" required>
+                    
+                    <label style="color: #fff; display: block; margin-top: 10px;">Data de Nascimento:</label>
+                    <input type="date" id="dob" required>
+                    
+                    <button type="submit" class="btn-orange">Cadastrar</button>
+                </form>
+                
+                <p style="color: #fff; margin-top: 15px;">Já tem uma conta? 
+                    <a onclick="toggleAuthMode()" style="color: #FF7F50; cursor: pointer;">Faça Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/script.js"></script>
+</body>
+</html>
