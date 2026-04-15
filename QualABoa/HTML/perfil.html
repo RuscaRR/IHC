@@ -9,23 +9,24 @@
 <body>
 
     <nav class="navbar">
-        <h1 class="logo"><a href="../index.html">QUAL A BOA</a></h1>
+        <a href="../index.html"><img src="../IMG/LogoQualABoa.png" alt="logo" width="200px"></a>
         <ul class="nav-links">
             <li><a href="../index.html">Feed</a></li>
             <li><a href="calendario.html">Calendário</a></li>
-            <li><a href="perfil.html" style="color: var(--blue);">Perfil</a></li>
+            <li><a href="perfil.html" style="color: var(--orange);">Perfil</a></li>
+            <li><a href="login.html">Login</a></li>
             <li><button class="btn-blue" onclick="tentarCriarEvento()">Criar Evento</button></li>
-            <li><a href="#" style="color: var(--orange);" onclick="fazerLogout()">Sair</a></li>
         </ul>
     </nav>
 
     <div class="container">
         <div class="profile-header" style="display: flex; gap: 20px; align-items: center; margin-bottom: 40px;">
-            <div class="profile-pic" style="width: 100px; height: 100px; background-color: var(--blue); border-radius: 50%;"></div>
+            <div class="profile-pic" id="userPic" style="width: 100px; height: 100px; background-color: var(--blue); border-radius: 50%; background-size: cover; background-position: center;"></div>
             <div>
-                <h2>Usuário Logado</h2>
-                <p style="color: #777; margin-bottom: 10px;">@usuario123</p>
-                <button class="btn-outline">Editar Perfil</button>
+                <h2 id="userName">Usuário Logado</h2>
+                <p id="userEmail" style="color: #777; margin-bottom: 5px;">usuario@email.com</p>
+                <p id="userDob" style="color: #777; margin-bottom: 15px; font-size: 0.9em;">Nascido em: --/--/----</p>
+                <button class="btn-outline" onclick="window.location.href='editarPerfil.html'">Editar Perfil</button>
             </div>
         </div>
 
@@ -53,6 +54,34 @@
         </div>
     </div>
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dadosSalvos = localStorage.getItem('usuarioPerfil');
+
+            if (dadosSalvos) {
+                const usuario = JSON.parse(dadosSalvos);
+
+                if (usuario.nome) {
+                    document.getElementById('userName').textContent = usuario.nome;
+                }
+
+                if (usuario.email) {
+                    document.getElementById('userEmail').textContent = usuario.email;
+                }
+
+                if (usuario.nascimento) {
+                    const dataFormatada = usuario.nascimento.split('-').reverse().join('/');
+                    document.getElementById('userDob').textContent = "Nascido em: " + dataFormatada;
+                }
+
+                if (usuario.imagem) {
+                    // Coloca a imagem salva como fundo da bolinha do perfil
+                    document.getElementById('userPic').style.backgroundImage = `url('${usuario.imagem}')`;
+                }
+            }
+        });
+    </script>
     <script src="../JS/script.js"></script>
 </body>
 </html>

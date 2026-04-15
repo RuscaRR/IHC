@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="auth-container">
+            <a href="../index.html">
+                <img id="loginLogo" src="../IMG/LogoQualABoa.png" alt="logo" width="200px">
+            </a>
+
+            <div id="edit-profile-form">
+                <h2 style="color: #fff; margin-bottom: 20px; text-align: center;">Editar Perfil</h2>
+                
+                <form id="profileForm">
+                    <label style="color: #fff; display: block; margin-top: 10px; font-size: 0.9rem;">Foto de Perfil:</label>
+                    <input type="file" id="edit-img" accept="image/*" style="background-color: #fff; cursor: pointer;">
+                    
+                    <label style="color: #fff; display: block; margin-top: 10px; font-size: 0.9rem;">Nome Completo:</label>
+                    <input type="text" id="edit-nome" placeholder="Seu Nome" value="Usuário Teste">
+                    
+                    <label style="color: #fff; display: block; margin-top: 10px; font-size: 0.9rem;">E-mail:</label>
+                    <input type="email" id="edit-email" placeholder="E-mail" value="teste@email.com">
+                    
+                    <label style="color: #fff; display: block; margin-top: 10px; font-size: 0.9rem;">Data de Nascimento:</label>
+                    <input type="date" id="edit-dob">
+                    
+                    <label style="color: #fff; display: block; margin-top: 10px; font-size: 0.9rem;">Nova Senha (Opcional):</label>
+                    <input type="password" id="edit-password" placeholder="Digite apenas se quiser alterar">
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 25px;">
+                        <button type="button" class="btn-orange" style="flex: 1;" onclick="salvarPerfil()">Salvar</button>
+                        <button type="button" class="btn-blue" style="flex: 1;" onclick="window.history.back()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/script.js"></script>
+    
+    <script>
+            function salvarPerfil() {
+                const nome = document.getElementById('edit-nome').value;
+                const email = document.getElementById('edit-email').value;
+                const dob = document.getElementById('edit-dob').value;
+                const imgInput = document.getElementById('edit-img'); // Procura a imagem
+                
+                if(!nome) {
+                    alert("O nome não pode ficar vazio!");
+                    return;
+                }
+
+                // Pega os dados antigos para não apagar a foto se o usuário só mudar o nome
+                let dadosAntigos = JSON.parse(localStorage.getItem('usuarioPerfil')) || {};
+
+                const dadosUsuario = {
+                    nome: nome,
+                    email: email,
+                    nascimento: dob,
+                    imagem: dadosAntigos.imagem || "" 
+                };
+
+                const finalizarSalvamento = () => {
+                    localStorage.setItem('usuarioPerfil', JSON.stringify(dadosUsuario));
+                    alert("Perfil atualizado com sucesso!");
+                    window.location.href = 'perfil.html';
+                };
+
+                // Se o usuário escolheu uma foto nova, transforma em texto (Base64) e salva
+                if (imgInput.files && imgInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        dadosUsuario.imagem = e.target.result; 
+                        finalizarSalvamento();
+                    };
+                    reader.readAsDataURL(imgInput.files[0]);
+                } else {
+                    // Se não escolheu foto, salva direto com a foto antiga
+                    finalizarSalvamento();
+                }
+            }
+    </script>
+</body>
+</html>

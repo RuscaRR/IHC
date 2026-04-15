@@ -26,8 +26,10 @@ function fazerLogin() {
 
 function fazerLogout() {
     localStorage.removeItem('isLoggedIn'); 
-    // Como o botão sair está no index (raiz), ele precisa entrar na pasta HTML
-    window.location.href = './HTML/login.html'; 
+    alert("Sessão encerrada com sucesso.");
+
+    // Recarrega a página atual para limpar o estado e mostrar a tela certa
+    window.location.reload(); 
 }
 
 // ==========================================
@@ -268,3 +270,28 @@ function verDetalhes(nome, data, local, imagem, desc) {
     // Redireciona para a página de detalhes
     window.location.href = './HTML/evento.html';
 }
+
+// ==========================================
+// 6. VERIFICAÇÃO DE ESTADO NA PÁGINA DE LOGIN
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Busca as divs que criamos no login.html
+    const authFormsContainer = document.getElementById('auth-forms-container');
+    const loggedInContainer = document.getElementById('logged-in-container');
+
+    // Só executa essa lógica se estivermos na página de login (onde essas divs existem)
+    if (authFormsContainer && loggedInContainer) {
+        const isLogado = localStorage.getItem('isLoggedIn');
+
+        if (isLogado === 'true') {
+            // Se estiver logado: esconde formulários, mostra a tela de terminar sessão
+            authFormsContainer.classList.add('hidden');
+            loggedInContainer.classList.remove('hidden');
+        } else {
+            // Se NÃO estiver logado: garante que a tela de terminar sessão esteja oculta
+            authFormsContainer.classList.remove('hidden');
+            loggedInContainer.classList.add('hidden');
+        }
+    }
+});

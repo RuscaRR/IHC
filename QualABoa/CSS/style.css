@@ -51,6 +51,11 @@ body {
     border-bottom: 2px solid var(--orange);
 }
 
+#loginLogo {
+    display: block;
+    margin: 0 auto;
+}
+
 .logo a {
     font-size: 1.5rem;
     font-weight: bold;
@@ -102,9 +107,13 @@ button:hover {
 }
 
 .btn-outline {
-    background-color: transparent;
-    border: 1px solid var(--orange);
-    color: var(--orange);
+    background-color: var(--orange);
+    border: 1px solid black;
+    color: #fff;
+}
+
+#userName {
+    color: var(--dark-grey);
 }
 
 /* =========================
@@ -198,6 +207,14 @@ button:hover {
 .auth-container a {
     color: var(--blue);
     cursor: pointer;
+}
+
+#logged-in-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--dark-grey);
+    border-radius: 10px;
 }
 
 /* =========================
