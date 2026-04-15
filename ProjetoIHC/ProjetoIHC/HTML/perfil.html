@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo"><a href="../index.html">QUAL A BOA</a></h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Feed</a></li>
+            <li><a href="calendario.html">Calendário</a></li>
+            <li><a href="perfil.html" style="color: var(--blue);">Perfil</a></li>
+            <li><button class="btn-blue" onclick="tentarCriarEvento()">Criar Evento</button></li>
+            <li><a href="#" style="color: var(--orange);" onclick="fazerLogout()">Sair</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="profile-header" style="display: flex; gap: 20px; align-items: center; margin-bottom: 40px;">
+            <div class="profile-pic" style="width: 100px; height: 100px; background-color: var(--blue); border-radius: 50%;"></div>
+            <div>
+                <h2>Usuário Logado</h2>
+                <p style="color: #777; margin-bottom: 10px;">@usuario123</p>
+                <button class="btn-outline">Editar Perfil</button>
+            </div>
+        </div>
+
+        <div class="friends-section">
+            <h3 style="color: var(--orange); margin-bottom: 15px;">Atividade dos Amigos</h3>
+            <button class="btn-blue" style="margin-bottom: 20px;">+ Adicionar Amigo</button>
+            
+            <div class="friends-events" style="background-color: var(--dark-grey); padding: 20px; border-radius: 10px; display: flex; flex-direction: column; gap: 15px;">
+                <p>🤘 <strong>João</strong> confirmou presença no <em>Festival de Rock</em> na Sexta.</p>
+                <p>🚗 <strong>Maria</strong> curtiu o evento <em>Encontro de Carros Antigos</em>.</p>
+                <p>🍻 <strong>Carlos</strong> criou o evento <em>Churrasco de Domingo</em>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-event-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('create-event-modal')">&times;</span>
+            <h2>Criar Novo Evento</h2>
+            <input type="text" placeholder="Nome do Evento">
+            <input type="date">
+            <input type="text" placeholder="Local">
+            <textarea placeholder="Descrição do evento..."></textarea>
+            <button class="btn-orange">Publicar Evento</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário - QUAL A BOA</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1 class="logo"><a href="../index.html">QUAL A BOA</a></h1>
+        <ul class="nav-links">
+            <li><a href="../index.html">Feed</a></li>
+            <li><a href="calendario.html" style="color: var(--blue);">Calendário</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+            <li><button class="btn-blue" onclick="tentarCriarEvento()">Criar Evento</button></li>
+            <li><a href="#" style="color: var(--orange);" onclick="fazerLogout()">Sair</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="section-title">Seu Calendário</h2>
+        <div class="calendar-placeholder" style="background-color: var(--dark-grey); padding: 40px; text-align: center; border-radius: 10px;">
+            <p>Visualização de grade do calendário do mês atual aqui.</p>
+            <p style="color: var(--blue); margin-top: 10px;">(Futuramente você pode integrar uma biblioteca como FullCalendar.js)</p>
+        </div>
+    </div>
+
+    <div id="create-event-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('create-event-modal')">&times;</span>
+            <h2>Criar Novo Evento</h2>
+            <input type="text" placeholder="Nome do Evento">
+            <input type="date">
+            <input type="text" placeholder="Local">
+            <textarea placeholder="Descrição do evento..."></textarea>
+            <button class="btn-orange">Publicar Evento</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
