@@ -1,8 +1,4 @@
-// ==========================================
-// QUAL A BOA - Lógica do Front-end
-// ==========================================
-
-// 1. ALTERNAR ENTRE LOGIN E CADASTRO (na página login.html)
+// ALTERNAR ENTRE LOGIN E CADASTRO 
 function toggleAuthMode() {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -13,14 +9,12 @@ function toggleAuthMode() {
     }
 }
 
-// ==========================================
-// 2. SISTEMA DE LOGIN SIMULADO (localStorage)
-// ==========================================
+// (localStorage)
 
 function fazerLogin() {
     localStorage.setItem('isLoggedIn', 'true'); 
     alert("Login realizado com sucesso!");
-    // Como o login está na pasta HTML, precisa voltar uma pasta (../) para achar o index
+
     window.location.href = '../index.html'; 
 }
 
@@ -28,13 +22,10 @@ function fazerLogout() {
     localStorage.removeItem('isLoggedIn'); 
     alert("Sessão encerrada com sucesso.");
 
-    // Recarrega a página atual para limpar o estado e mostrar a tela certa
     window.location.reload(); 
 }
 
-// ==========================================
-// 3. CONTROLE DO MODAL (HUD DE CRIAR EVENTO)
-// ==========================================
+// CONTROLE DO MODAL (HUD DE CRIAR EVENTO)
 
 function tentarCriarEvento() {
     const logado = localStorage.getItem('isLoggedIn');
@@ -46,7 +37,6 @@ function tentarCriarEvento() {
         }
     } else {
         alert("Você precisa estar cadastrado e logado para criar um evento no QUAL A BOA!");
-        // Entrando na pasta HTML para achar o login
         window.location.href = './HTML/login.html';
     }
 }
@@ -58,9 +48,7 @@ function fecharModal(modalId) {
     }
 }
 
-// ==========================================
 // 4. VALIDAÇÃO DE IDADE NO CADASTRO (+18)
-// ==========================================
 
 const signupForm = document.getElementById('signupForm');
 
@@ -86,17 +74,13 @@ if (signupForm) {
         } else {
             alert("Conta criada com sucesso! Bem-vindo!");
             localStorage.setItem('isLoggedIn', 'true'); 
-            // Voltando uma pasta para achar o index
             window.location.href = '../index.html'; 
         }
     });
 }
 
-// ==========================================
-// 5. PUBLICAR E PERSISTIR EVENTOS
-// ==========================================
+// PUBLICAR E PERSISTIR EVENTOS
 
-// Função principal para criar o evento
 function publicarEvento() {
     const nome = document.getElementById('novo-evento-nome').value;
     const data = document.getElementById('novo-evento-data').value;
@@ -109,7 +93,6 @@ function publicarEvento() {
         return;
     }
 
-    // Se o usuário selecionou uma imagem, vamos converter para texto (Base64)
     if (imgInput.files && imgInput.files[0]) {
         const reader = new FileReader();
         
@@ -120,7 +103,6 @@ function publicarEvento() {
         
         reader.readAsDataURL(imgInput.files[0]);
     } else {
-        // Se não tiver imagem, usa uma padrão
         salvarEventoNoStorage(nome, data, local, desc, "https://via.placeholder.com/300x150?text=Sem+Imagem");
     }
 }
@@ -130,7 +112,7 @@ function salvarEventoNoStorage(nome, data, local, desc, imagem) {
     const novosEventos = JSON.parse(localStorage.getItem('meusEventos')) || [];
     
     const novoEvento = {
-        id: Date.now(), // ID único baseado no tempo
+        id: Date.now(), 
         nome,
         data,
         local,
@@ -141,7 +123,6 @@ function salvarEventoNoStorage(nome, data, local, desc, imagem) {
     novosEventos.push(novoEvento);
     localStorage.setItem('meusEventos', JSON.stringify(novosEventos));
 
-    // Limpar campos e fechar modal
     fecharModal('create-event-modal');
     document.getElementById('novo-evento-nome').value = '';
     document.getElementById('novo-evento-data').value = '';
@@ -150,7 +131,6 @@ function salvarEventoNoStorage(nome, data, local, desc, imagem) {
     
     alert("Evento publicado com sucesso!");
     
-    // Recarrega o feed para mostrar o novo evento
     renderizarEventosNoFeed();
 }
 
@@ -174,7 +154,7 @@ function renderizarEventosNoFeed() {
                     <img src="${evento.imagem}" alt="${evento.nome}" style="width: 100%; height: 150px; object-fit: cover;">
                 </div>
                 <div class="event-info">
-                    <h3>${evento.nome}</h3>
+                    <h3 class="event-title" >${evento.nome}</h3>
                     <p class="event-desc">${dataFormatada} - ${evento.local}</p>
                     
                     <button class="btn-orange" onclick="verDetalhes('${evento.nome}', '${evento.data}', '${evento.local}', '${evento.imagem}', '${evento.desc}')">Ver Detalhes</button>
@@ -187,9 +167,28 @@ function renderizarEventosNoFeed() {
     });
 }
 
-// ==========================================
-// 6. FAVORITOS E INICIALIZAÇÃO
-// ==========================================
+// BARRA DE PESQUISA
+
+function filtrarEventos() {
+
+    const input = document.querySelector('.search-bar');
+    const filtro = input.value.toLowerCase();
+
+    const eventos = document.querySelectorAll('.event-card');
+
+    eventos.forEach(evento => {
+        const titulo = evento.querySelector('.event-title').textContent.toLowerCase();
+        const descricao = evento.querySelector('.event-desc').textContent.toLowerCase();
+
+        if (titulo.includes(filtro) || descricao.includes(filtro)) {
+            evento.style.display = "";
+        } else {
+            evento.style.display = "none";
+        }
+    });
+}
+
+// FAVORITOS E INICIALIZAÇÃO
 
 function favoritarEvento(nome, dataISO) {
     let eventosSalvos = JSON.parse(localStorage.getItem('eventosFavoritos')) || [];
@@ -204,53 +203,47 @@ function favoritarEvento(nome, dataISO) {
     }
 }
 
-// Inicialização automática ao carregar qualquer página
 document.addEventListener('DOMContentLoaded', () => {
-    // Se estiver no Feed, carrega os cards
+
     renderizarEventosNoFeed();
     
-    // Se estiver no Calendário, renderiza o calendário (sua função existente)
     if (typeof renderizarCalendario === "function") {
         renderizarCalendario();
     }
 });
 
-// Função que desenha o calendário usando a biblioteca FullCalendar
+
 function renderizarCalendario() {
     const container = document.getElementById('calendario-container');
     
-    // Se a div do calendário não existir na página, cancela a função
     if (!container) return;
 
-    // 1. Busca os eventos salvos no LocalStorage
+    // Busca os eventos salvos no LocalStorage
     const eventosSalvos = JSON.parse(localStorage.getItem('eventosFavoritos')) || [];
 
-    // 2. Transforma os seus dados para o formato que o FullCalendar exige
+    // Transforma os seus dados para o formato FullCalendar 
     const eventosProCalendario = eventosSalvos.map(evento => {
         return {
-            title: evento.nome,    // O nome que vai aparecer no bloquinho
-            start: evento.data,    // A data (formato YYYY-MM-DD)
-            color: '#FF7F50'       // Cor laranja do seu projeto
+            title: evento.nome,    
+            start: evento.data,    
+            color: '#FF7F50'       
         };
     });
 
-    // 3. Inicializa o FullCalendar
     const calendar = new FullCalendar.Calendar(container, {
-        initialView: 'dayGridMonth', // Começa mostrando o mês
-        locale: 'pt-br',             // Traduz os dias e botões para Português
+        initialView: 'dayGridMonth', 
+        locale: 'pt-br',             
         
         // Define o que aparece no cabeçalho do calendário
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek' // Botões para ver Mês ou Semana
+            right: 'dayGridMonth,timeGridWeek' 
         },
         
-        // Joga a lista de eventos convertida aqui
         events: eventosProCalendario
     });
 
-    // 4. Manda desenhar na tela
     calendar.render();
 }
 
@@ -264,32 +257,28 @@ function verDetalhes(nome, data, local, imagem, desc) {
         desc: desc || "Sem descrição disponível."
     };
     
-    // Salva o evento atual para a outra página ler
+
     localStorage.setItem('eventoVisualizar', JSON.stringify(eventoClicado));
     
-    // Redireciona para a página de detalhes
     window.location.href = './HTML/evento.html';
 }
 
-// ==========================================
-// 6. VERIFICAÇÃO DE ESTADO NA PÁGINA DE LOGIN
-// ==========================================
+// VERIFICAÇÃO DE ESTADO NA PÁGINA DE LOGIN
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Busca as divs que criamos no login.html
+    // Busca as divs que em login.html
     const authFormsContainer = document.getElementById('auth-forms-container');
     const loggedInContainer = document.getElementById('logged-in-container');
 
-    // Só executa essa lógica se estivermos na página de login (onde essas divs existem)
     if (authFormsContainer && loggedInContainer) {
         const isLogado = localStorage.getItem('isLoggedIn');
 
         if (isLogado === 'true') {
-            // Se estiver logado: esconde formulários, mostra a tela de terminar sessão
+
             authFormsContainer.classList.add('hidden');
             loggedInContainer.classList.remove('hidden');
         } else {
-            // Se NÃO estiver logado: garante que a tela de terminar sessão esteja oculta
+
             authFormsContainer.classList.remove('hidden');
             loggedInContainer.classList.add('hidden');
         }

@@ -21,7 +21,7 @@
 
     <div class="container">
         <div class="feed-header">
-            <input type="text" placeholder="Pesquisar eventos..." class="search-bar">
+            <input type="text" placeholder="Pesquisar eventos..." class="search-bar" oninput="filtrarEventos()">
             <div class="filters">
                 <button class="btn-blue">Populares</button>
                 <button class="btn-blue">Perto de Mim</button>
@@ -33,7 +33,7 @@
             <div class="event-card">
                 <div class="event-img"><img src="./IMG/Mario.jpeg" alt="Mario"></div>
                 <div class="event-info">
-                    <h3>Competição de sósias do Mario</h3>
+                    <h3 class="event-title">Competição de sósias do Mario</h3>
                     <p class="event-desc">15/05/2026 - Centro de Eventos</p>
                     <button class="btn-orange" onclick="verDetalhes('Competição de sósias do Mario', '2026-05-15', 'Centro de Eventos', './IMG/Mario.jpeg', 'Uma competição incrível para fãs do encanador mais famoso do mundo!')">Ver Detalhes</button>
                     <button class="btn-outline" onclick="favoritarEvento('Competição de sósias do Mario', '2026-05-15')">⭐ Salvar</button>
@@ -42,7 +42,7 @@
             <div class="event-card">
                 <div class="event-img"><img src="./IMG/Maveco.jpeg" alt="Maveco"></div>
                 <div class="event-info">
-                    <h3>Encontro de carros antigos</h3>
+                    <h3 class="event-title">Encontro de carros antigos</h3>
                     <p class="event-desc">12/05/2026 - Shopping Lupo</p>
                     <button class="btn-orange" onclick="verDetalhes('Encontro de carros antigos', '2026-05-12', 'Shopping Lupo', './IMG/Maveco.jpeg', 'Exposição de veículos clássicos e raros.')">Ver Detalhes</button>
                     <button class="btn-outline" onclick="favoritarEvento('Encontro de carros antigos', '2026-05-12')">⭐ Salvar</button>

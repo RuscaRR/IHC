@@ -1,6 +1,4 @@
-/* =========================
-   RESET & VARIÁVEIS
-========================= */
+
 :root {
     --bg-color: #fef6e4;
     --text-color: #ffffff;
@@ -21,9 +19,9 @@ body {
     color: var(--text-color);
 }
 
-/* =========================
+/*
    UTILITÁRIOS
-========================= */
+*/
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -39,9 +37,9 @@ body {
     color: var(--orange);
 }
 
-/* =========================
+/* 
    NAVBAR
-========================= */
+*/
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -80,9 +78,9 @@ body {
     color: #E53935;
 }
 
-/* =========================
+/*
    BOTÕES
-========================= */
+*/
 button {
     padding: 10px 20px;
     border: none;
@@ -107,8 +105,8 @@ button:hover {
 }
 
 .btn-outline {
-    background-color: var(--orange);
-    border: 1px solid black;
+    background-color: var(--red);
+    /* border: 1px solid black; */
     color: #fff;
 }
 
@@ -116,9 +114,9 @@ button:hover {
     color: var(--dark-grey);
 }
 
-/* =========================
+/*
    FEED / EVENTOS
-========================= */
+*/
 .feed-header {
     display: flex;
     gap: 10px;
@@ -143,6 +141,9 @@ button:hover {
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid var(--orange);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .event-img img {
@@ -167,6 +168,9 @@ button:hover {
 }
 
 .event-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     padding: 15px;
 }
 
@@ -177,12 +181,17 @@ button:hover {
 
 .event-info button {
     width: 100%;
+    /* margin-top: 10px; */
+    margin-top: auto;
+}
+
+.event-info button + button {
     margin-top: 10px;
 }
 
-/* =========================
+/*
    AUTENTICAÇÃO
-========================= */
+*/
 .auth-container {
     max-width: 400px;
     margin: 50px auto;
@@ -217,9 +226,9 @@ button:hover {
     border-radius: 10px;
 }
 
-/* =========================
+/*
    MODAL
-========================= */
+*/
 .modal {
     position: fixed;
     inset: 0;

@@ -49,14 +49,13 @@
                 const nome = document.getElementById('edit-nome').value;
                 const email = document.getElementById('edit-email').value;
                 const dob = document.getElementById('edit-dob').value;
-                const imgInput = document.getElementById('edit-img'); // Procura a imagem
+                const imgInput = document.getElementById('edit-img'); 
                 
                 if(!nome) {
                     alert("O nome não pode ficar vazio!");
                     return;
                 }
 
-                // Pega os dados antigos para não apagar a foto se o usuário só mudar o nome
                 let dadosAntigos = JSON.parse(localStorage.getItem('usuarioPerfil')) || {};
 
                 const dadosUsuario = {
@@ -72,7 +71,6 @@
                     window.location.href = 'perfil.html';
                 };
 
-                // Se o usuário escolheu uma foto nova, transforma em texto (Base64) e salva
                 if (imgInput.files && imgInput.files[0]) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
@@ -81,7 +79,6 @@
                     };
                     reader.readAsDataURL(imgInput.files[0]);
                 } else {
-                    // Se não escolheu foto, salva direto com a foto antiga
                     finalizarSalvamento();
                 }
             }
